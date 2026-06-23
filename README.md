@@ -1,45 +1,48 @@
 # SGC - Sistema de Gestão Comercial (Loja de Informática)
 
-Este repositório contém o código-fonte do backend do **SGC (Sistema de Gestão Comercial)** desenvolvido para a disciplina de Desenvolvimento de Sistemas. A aplicação consiste em uma API REST robusta construída com o ecossistema Spring.
+Este repositório contém o código-fonte completo do **SGC (Sistema de Gestão Comercial)** desenvolvido para a disciplina de Desenvolvimento de Sistemas. A aplicação consiste em um ecossistema comercial robusto que integra uma interface Desktop ágil a uma API REST inteligente.
 
 ---
 
-##  O que foi implementado na Entrega 2
+## 🚀 O que foi implementado no Projeto Final
 
-### 1. Arquitetura em Camadas (Refatoração)
-O projeto foi totalmente reestruturado seguindo o padrão de mercado para divisão de responsabilidades:
-- **Models/Entities:** Mapeamento das tabelas de banco de dados.
-- **Repositories:** Interfaces com Spring Data JPA para comunicação com a base de dados.
-- **Services:** Isolamento total das regras de negócio.
+### 1. Frontend Desktop (Interface Gráfica)
+- **Java Swing:** Telas de Login e Painel Principal intuitivas e responsivas para o operador do sistema.
+- **Integração Completa:** Comunicação via HTTP enviando e recebendo dados formatados em JSON (DTOs) para o Backend.
+
+### 2. Controle de Estoque Automatizado & Transações
+- **Controle Transacional:** Uso da anotação `@Transactional` no serviço de vendas, garantindo rollback automático caso ocorra qualquer falha no processo.
+- **Validação em Tempo Real:** Sistema impede a venda se a quantidade solicitada for maior que o estoque, atualizando os valores (ex: de 10 para 9) instantaneamente no banco de dados após a confirmação.
+- **Precisão Financeira:** Uso estrito de `BigDecimal` no Java e `DECIMAL` no MySQL para evitar furos de arredondamento monetário em cálculos de vendas.
+
+### 3. Arquitetura em Camadas (Backend)
+O projeto segue o padrão de mercado para divisão de responsabilidades:
+- **Models/Entities:** Mapeamento ORM das tabelas de banco de dados.
+- **Repositories:** Interfaces com Spring Data JPA para comunicação ágil com a base de dados.
+- **Services:** Isolamento total das regras de faturamento e negócio.
 - **Controllers:** Exposição dos endpoints REST e manipulação de requisições HTTP.
 
-### 2. Segurança e Autenticação com Spring Security & JWT
+### 4. Segurança e Autenticação com Spring Security & JWT
 - Integração do **Spring Security** com a biblioteca **Java JWT (Auth0)**.
-- Implementação de endpoints públicos para cadastro e login de usuários.
 - Geração de tokens JWT criptografados (HMAC256) com tempo de expiração de 2 horas.
 - Bloqueio nativo de rotas privadas (ex: `/clientes` e `/produtos`) contra acessos não autenticados (**Status 403 Forbidden**).
 
-### 3. Tratamento Global de Exceções
-- Criação de um Handler centralizado com a anotação `@RestControllerAdvice`.
-- Intercepção de falhas de validação e erros de banco de dados para o retorno de payloads JSON limpos e padronizados com os devidos códigos HTTP.
-
-### 4. Padrões de Projeto (Design Patterns)
-- **Data Transfer Object (DTO):** Encapsulamento seguro dos dados de requisições de autenticação.
-- **Repository Pattern:** Abstração completa da camada de persistência.
+### 5. Tratamento Global de Exceções
+- Criação de um Handler centralizado com a anotação `@RestControllerAdvice` para intercepção de falhas e retornos JSON limpos e padronizados.
 
 ---
 
-##  Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 - **Java 17**
 - **Spring Boot 3**
-- **Spring Data JPA**
-- **Spring Security**
+- **Spring Data JPA & Spring Security**
 - **Java JWT (Auth0)**
+- **Java Swing (Interface Desktop)**
 - **MySQL**
 
 ---
 
-##  Estrutura do Banco de Dados (Scripts SQL)
+## 🎲 Estrutura do Banco de Dados (Scripts SQL)
 
 O banco de dados utiliza a seguinte estrutura relacional para suporte ao sistema:
 
